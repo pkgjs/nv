@@ -1,0 +1,34 @@
+{
+  "name": "@pkgjs/nv",
+  "version": "0.0.0",
+  "description": "A tool for resolving node versions from common aliases",
+  "author": "Wes Todd <wes@wesleytodd.com>",
+  "keywords": [
+    "alias",
+    "node",
+    "node versions",
+    "versions",
+    "lts",
+    "active",
+    "maintenence"
+  ],
+  "license": "ISC",
+  "main": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/pkgjs/nv.git"
+  },
+  "scripts": {
+    "test": "standard && mocha",
+    "prepublushOnly": "npm t",
+    "postpublish": "git push origin && git push origin --tags"
+  },
+  "dependencies": {
+    "got": "^9.6.0",
+    "semver": "^6.3.0"
+  },
+  "devDependencies": {
+    "mocha": "^6.2.0",
+    "standard": "^14.3.1"
+  }
+}

@@ -12,7 +12,7 @@
     "active",
     "maintenence"
   ],
-  "license": "ISC",
+  "license": "MIT",
   "main": "index.js",
   "repository": {
     "type": "git",

@@ -19,7 +19,7 @@ suite('nv', () => {
     assert.strictEqual(versions[0].start.toISOString(), '2018-04-24T00:00:00.000Z')
     assert.strictEqual(versions[0].lts.toISOString(), '2018-10-30T00:00:00.000Z')
     assert.strictEqual(versions[0].maintenance.toISOString(), '2020-04-01T00:00:00.000Z')
-    assert.strictEqual(versions[0].end.toISOString(), '2021-04-01T00:00:00.000Z')
+    assert.strictEqual(versions[0].end.toISOString(), '2021-04-30T00:00:00.000Z')
   })
 
   test('lts', async () => {
@@ -40,7 +40,7 @@ suite('nv', () => {
     assert.strictEqual(versions[0].codename, 'dubnium')
     assert.strictEqual(versions[0].versionName, 'v10')
     assert.strictEqual(versions[1].major, 12)
-    assert.strictEqual(versions[1].codename, 'v12')
+    assert.strictEqual(versions[1].codename, 'erbium')
     assert.strictEqual(versions[1].versionName, 'v12')
   })
 
@@ -62,7 +62,7 @@ suite('nv', () => {
     const versions = await nv('current', { now })
     assert.strictEqual(versions.length, 1)
     assert.strictEqual(versions[0].major, 12)
-    assert.strictEqual(versions[0].codename, 'v12')
+    assert.strictEqual(versions[0].codename, 'erbium')
     assert.strictEqual(versions[0].versionName, 'v12')
   })
 
@@ -76,7 +76,7 @@ suite('nv', () => {
     assert.strictEqual(versions[1].codename, 'dubnium')
     assert.strictEqual(versions[1].versionName, 'v10')
     assert.strictEqual(versions[2].major, 12)
-    assert.strictEqual(versions[2].codename, 'v12')
+    assert.strictEqual(versions[2].codename, 'erbium')
     assert.strictEqual(versions[2].versionName, 'v12')
   })
 
@@ -84,7 +84,7 @@ suite('nv', () => {
     const versions = await nv('v12', { now })
     assert.strictEqual(versions.length, 1)
     assert.strictEqual(versions[0].major, 12)
-    assert.strictEqual(versions[0].codename, 'v12')
+    assert.strictEqual(versions[0].codename, 'erbium')
     assert.strictEqual(versions[0].versionName, 'v12')
   })
 

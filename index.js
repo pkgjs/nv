@@ -126,7 +126,6 @@ async function getLatestVersionsByCodename (now, cache) {
     ['maintained', maintained],
     ['active', active],
     ['lts_active', ltsActive],
-    ['active', active],
     ['lts', lts]
   ].forEach(([alias, vers]) => {
     aliases[alias] = Object.values(vers)

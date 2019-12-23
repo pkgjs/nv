@@ -24,11 +24,11 @@
     "postpublish": "git push origin && git push origin --tags"
   },
   "dependencies": {
-    "got": "^9.6.0",
-    "semver": "^6.3.0"
+    "got": "^10.2.0",
+    "semver": "^7.1.1"
   },
   "devDependencies": {
-    "mocha": "^6.2.0",
+    "mocha": "^6.2.2",
     "standard": "^14.3.1"
   }
 }

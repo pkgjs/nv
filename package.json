@@ -20,6 +20,7 @@
   },
   "scripts": {
     "test": "standard && mocha",
+    "debug": "mocha --inspect --inspect-brk --timeout=0",
     "prepublushOnly": "npm t",
     "postpublish": "git push origin && git push origin --tags"
   },

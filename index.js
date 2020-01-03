@@ -86,6 +86,9 @@ async function getLatestVersionsByCodename (now, cache) {
     // All versions get added to all
     obj.all.push(v)
 
+    // Add specific version references
+    obj[v.version] = obj[`v${v.version}`] = v
+
     // The new version is higher than the last stored version for this release line
     if (!obj[versionName] || semver.gt(ver.version, obj[versionName].version)) {
       // Version and codename alias

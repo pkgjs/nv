@@ -38,18 +38,16 @@ function resolveAlias (versions, alias) {
   }
 }
 
-async function getSchedule (cache) {
-  return (await got('https://raw.githubusercontent.com/nodejs/Release/master/schedule.json', {
-    json: true,
+function getSchedule (cache) {
+  return got('https://raw.githubusercontent.com/nodejs/Release/master/schedule.json', {
     cache
-  })).body
+  }).json()
 }
 
-async function getVersions (cache) {
-  return (await got('https://nodejs.org/dist/index.json', {
-    json: true,
+function getVersions (cache) {
+  return got('https://nodejs.org/dist/index.json', {
     cache
-  })).body
+  }).json()
 }
 
 async function getLatestVersionsByCodename (now, cache) {

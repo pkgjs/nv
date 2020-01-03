@@ -17,7 +17,7 @@ module.exports = async function (alias = 'lts_active', opts = {}) {
       vers.forEach((v) => {
         m[v.version] = v
       })
-    } else {
+    } else if (vers) {
       m[vers.version] = vers
     }
     return m

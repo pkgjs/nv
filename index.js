@@ -39,7 +39,7 @@ function resolveAlias (versions, alias) {
 }
 
 async function getSchedule (cache) {
-  return (await got('https://raw.githubusercontent.com/nodejs/nodejs.org/master/source/schedule.json', {
+  return (await got('https://raw.githubusercontent.com/nodejs/Release/master/schedule.json', {
     json: true,
     cache
   })).body

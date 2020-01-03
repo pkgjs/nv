@@ -108,4 +108,11 @@ suite('nv', () => {
     const versions = await nv(['lts_latest', 'maintained'], { now })
     assert.deepStrictEqual(versions.map((v) => v.major), [8, 10, 12])
   })
+
+  test('10.x || >=12.0.0 ', async () => {
+    const versions = await nv('10.0.0 || ~12.0.0', { now })
+    assert.strictEqual(versions.length, 2)
+    assert.strictEqual(versions[0].major, 10)
+    assert.strictEqual(versions[1].major, 12)
+  })
 })

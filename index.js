@@ -30,11 +30,17 @@ module.exports = async function (alias = 'lts_active', opts = {}) {
 }
 
 function resolveAlias (versions, alias) {
-  if (typeof alias === 'string' && versions[alias.toLowerCase()]) {
-    return versions[alias.toLowerCase()]
-  }
   if (typeof alias === 'number' && versions[`v${alias}`]) {
     return versions[`v${alias}`]
+  }
+
+  if (typeof alias === 'string') {
+    if (versions[alias.toLowerCase()]) {
+      return versions[alias.toLowerCase()]
+    }
+
+    // Alias might be a semver range
+    return versions.all.filter((v) => semver.satisfies(v.version, alias))
   }
 }
 

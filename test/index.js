@@ -18,7 +18,7 @@ suite('nv', () => {
     assert.strictEqual(versions[0].versionName, 'v10')
     assert.strictEqual(versions[0].start.toISOString(), '2018-04-24T00:00:00.000Z')
     assert.strictEqual(versions[0].lts.toISOString(), '2018-10-30T00:00:00.000Z')
-    assert.strictEqual(versions[0].maintenance.toISOString(), '2020-04-01T00:00:00.000Z')
+    assert.strictEqual(versions[0].maintenance.toISOString(), '2020-05-19T00:00:00.000Z')
     assert.strictEqual(versions[0].end.toISOString(), '2021-04-30T00:00:00.000Z')
   })
 
@@ -114,5 +114,16 @@ suite('nv', () => {
     assert.strictEqual(versions.length, 2)
     assert.strictEqual(versions[0].major, 10)
     assert.strictEqual(versions[1].major, 12)
+  })
+
+  test('mirror: v8-canary', async () => {
+    const mirror = 'https://nodejs.org/download/v8-canary/'
+    const versions = await nv('v13', { now, mirror })
+    assert.strictEqual(versions.length, 1)
+    assert.strictEqual(versions[0].major, 13)
+    assert.strictEqual(versions[0].minor, 0)
+    assert.strictEqual(versions[0].patch, 0)
+    assert.strictEqual(versions[0].tag, 'v8-canary20191022e5d3472f57')
+    assert.strictEqual(versions[0].versionName, 'v13')
   })
 })

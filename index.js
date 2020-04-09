@@ -6,9 +6,10 @@ const _cache = new Map()
 module.exports = async function (alias = 'lts_active', opts = {}) {
   const now = opts.now || new Date()
   const cache = opts.cache || _cache
+  const mirror = opts.mirror || 'https://nodejs.org/dist/'
 
   const a = Array.isArray(alias) ? alias : [alias]
-  const versions = await getLatestVersionsByCodename(now, cache)
+  const versions = await getLatestVersionsByCodename(now, cache, mirror)
 
   // Reduce to an object
   const m = a.reduce((m, a) => {
@@ -50,15 +51,15 @@ function getSchedule (cache) {
   }).json()
 }
 
-function getVersions (cache) {
-  return got('https://nodejs.org/dist/index.json', {
+function getVersions (cache, mirror) {
+  return got(mirror.replace(/\/$/, '') + '/index.json', {
     cache
   }).json()
 }
 
-async function getLatestVersionsByCodename (now, cache) {
+async function getLatestVersionsByCodename (now, cache, mirror) {
   const schedule = await getSchedule(cache)
-  const versions = await getVersions(cache)
+  const versions = await getVersions(cache, mirror)
 
   // Composite aliases point to the HEAD for each release line
   const supported = {}
@@ -67,10 +68,10 @@ async function getLatestVersionsByCodename (now, cache) {
   const lts = {}
 
   const aliases = versions.reduce((obj, ver) => {
-    const { major, minor, patch } = splitVersion(ver.version)
+    const { major, minor, patch, tag } = splitVersion(ver.version)
     const versionName = major !== '0' ? `v${major}` : `v${major}.${minor}`
     const codename = ver.lts ? ver.lts.toLowerCase() : versionName
-    const version = `${major}.${minor}.${patch}`
+    const version = tag !== '' ? `${major}.${minor}.${patch}-${tag}` : `${major}.${minor}.${patch}`
     const s = schedule[versionName]
 
     // Version Object
@@ -79,6 +80,7 @@ async function getLatestVersionsByCodename (now, cache) {
       major,
       minor,
       patch,
+      tag,
       codename,
       versionName,
       start: s && s.start && new Date(s.start),
@@ -162,6 +164,6 @@ async function getLatestVersionsByCodename (now, cache) {
 }
 
 function splitVersion (ver) {
-  const [, major, minor, patch] = /^v([0-9]*)\.([0-9]*)\.([0-9]*)/.exec(ver).map((n) => parseInt(n, 10))
-  return { major, minor, patch }
+  const [, major, minor, patch, tag] = /^v([0-9]*)\.([0-9]*)\.([0-9]*)(?:-([0-9A-Za-z-_]+))?/.exec(ver).map((n, i) => i < 4 ? parseInt(n, 10) : n || '')
+  return { major, minor, patch, tag }
 }

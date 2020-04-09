@@ -143,6 +143,9 @@ async function getLatestVersionsByCodename (now, cache) {
   // nvm --lts='lts/*'
   aliases['lts/*'] = aliases.lts_latest
 
+  // nvm 'node'
+  aliases.node = aliases.current
+
   return aliases
 }
 

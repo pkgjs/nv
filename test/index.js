@@ -64,6 +64,12 @@ suite('nv', () => {
     assert.strictEqual(versions[0].major, 12)
     assert.strictEqual(versions[0].codename, 'erbium')
     assert.strictEqual(versions[0].versionName, 'v12')
+
+    const node = await nv('node', { now })
+    assert.strictEqual(node.length, 1)
+    assert.strictEqual(node[0].major, 12)
+    assert.strictEqual(node[0].codename, 'erbium')
+    assert.strictEqual(node[0].versionName, 'v12')
   })
 
   test('maintained', async () => {

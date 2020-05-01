@@ -43,7 +43,7 @@ const nv = require('@pkgjs/nv')
 You can also pass an array of aliases and the resulting array will be sorted and de-duped, for example:
 
 ```javascript
-const versions = await nv(['lts', 'maintained'])
+const versions = await nv(['lts', 'supported'])
 console.log(versions.map((v) => v.version))
 /*
 [ '8.16.1', '10.16.3', '12.11.0' ]
@@ -61,7 +61,8 @@ For now referenced here until we have a more official doc: https://github.com/no
 - `lts`: Head of current LTS lines
 - `active`: The newest version in the active but not maintenence mode lines
 - `lts_latest`/`lts/*`: Latest of the LTS lines (`lts/*` for nvm compat)
-- `maintained`: Head of all maintained lines
+- `supported`: Head of all maintained lines
+- *DEPRECATED* `maintained`: Head of all maintained lines
 - `current`/`node`: Newest of all maintained lines (`node` for nvm compat)
 
 **Version Aliases**

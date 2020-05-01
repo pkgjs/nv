@@ -18,7 +18,7 @@ suite('nv', () => {
     assert.strictEqual(versions[0].versionName, 'v10')
     assert.strictEqual(versions[0].start.toISOString(), '2018-04-24T00:00:00.000Z')
     assert.strictEqual(versions[0].lts.toISOString(), '2018-10-30T00:00:00.000Z')
-    assert.strictEqual(versions[0].maintenance.toISOString(), '2020-04-01T00:00:00.000Z')
+    assert.strictEqual(versions[0].maintenance.toISOString(), '2020-05-19T00:00:00.000Z')
     assert.strictEqual(versions[0].end.toISOString(), '2021-04-30T00:00:00.000Z')
   })
 
@@ -72,8 +72,8 @@ suite('nv', () => {
     assert.strictEqual(node[0].versionName, 'v12')
   })
 
-  test('maintained', async () => {
-    const versions = await nv('maintained', { now })
+  test('supported', async () => {
+    const versions = await nv('supported', { now })
     assert.strictEqual(versions.length, 3)
     assert.strictEqual(versions[0].major, 8)
     assert.strictEqual(versions[0].codename, 'carbon')
@@ -110,8 +110,8 @@ suite('nv', () => {
     assert.strictEqual(versions[0].versionName, 'v10')
   })
 
-  test('multiple: lts_latest, maintained', async () => {
-    const versions = await nv(['lts_latest', 'maintained'], { now })
+  test('multiple: lts_latest, supported', async () => {
+    const versions = await nv(['lts_latest', 'supported'], { now })
     assert.deepStrictEqual(versions.map((v) => v.major), [8, 10, 12])
   })
 

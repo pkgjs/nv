@@ -61,7 +61,7 @@ async function getLatestVersionsByCodename (now, cache) {
   const versions = await getVersions(cache)
 
   // Composite aliases point to the HEAD for each release line
-  const maintained = {}
+  const supported = {}
   const active = {}
   const ltsActive = {}
   const lts = {}
@@ -99,7 +99,7 @@ async function getLatestVersionsByCodename (now, cache) {
       obj[versionName] = obj[codename] = v
 
       if (now > v.start && now < v.end) {
-        maintained[versionName] = v
+        supported[versionName] = v
 
         if (now < v.maintenance) {
           active[versionName] = v
@@ -132,7 +132,7 @@ async function getLatestVersionsByCodename (now, cache) {
 
   // Add composite aliases
   ;[
-    ['maintained', maintained],
+    ['supported', supported],
     ['active', active],
     ['lts_active', ltsActive],
     ['lts', lts]
@@ -145,6 +145,18 @@ async function getLatestVersionsByCodename (now, cache) {
 
   // nvm 'node'
   aliases.node = aliases.current
+
+  // Deprecated maintained alias
+  let deprecationShown = false
+  Object.defineProperty(aliases, 'maintained', {
+    get: () => {
+      if (!deprecationShown) {
+        deprecationShown = true
+        console.warn(new Error('maintained is deprecated, use supported'))
+      }
+      return Object.values(supported)
+    }
+  })
 
   return aliases
 }

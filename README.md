@@ -41,7 +41,7 @@ const nv = require('@pkgjs/nv')
 You can also pass an array of aliases and the resulting array will be sorted and de-duped, for example:
 
 ```javascript
-const versions = await nv(['lts', 'maintained'])
+const versions = await nv(['lts', 'supported'])
 console.log(versions.map((v) => v.version))
 /*
 [ '8.16.1', '10.16.3', '12.11.0' ]

@@ -61,7 +61,7 @@ async function getLatestVersionsByCodename (now, cache) {
   const versions = await getVersions(cache)
 
   // Composite aliases point to the HEAD for each release line
-  const maintained = {}
+  const supported = {}
   const active = {}
   const ltsActive = {}
   const lts = {}
@@ -99,7 +99,7 @@ async function getLatestVersionsByCodename (now, cache) {
       obj[versionName] = obj[codename] = v
 
       if (now > v.start && now < v.end) {
-        maintained[versionName] = v
+        supported[versionName] = v
 
         if (now < v.maintenance) {
           active[versionName] = v
@@ -132,7 +132,7 @@ async function getLatestVersionsByCodename (now, cache) {
 
   // Add composite aliases
   ;[
-    ['maintained', maintained],
+    ['supported', supported],
     ['active', active],
     ['lts_active', ltsActive],
     ['lts', lts]

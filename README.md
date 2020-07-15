@@ -5,6 +5,8 @@
 [![js-standard-style](https://img.shields.io/badge/code%20style-standard-brightgreen.svg)](https://github.com/standard/standard)
 [![CI Test](https://github.com/pkgjs/nv/workflows/Test/badge.svg)](https://github.com/pkgjs/nv/actions)
 
+This repository is managed by the [Package Maintenance Working Group](https://github.com/nodejs/package-maintenance), see [Governance](https://github.com/nodejs/package-maintenance/blob/master/Governance.md).
+
 
 
 ## Usage

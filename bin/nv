@@ -1,0 +1,24 @@
+#!/usr/bin/env node
+
+const nv = require('../index')
+
+const args = require('yargs')
+  .command({
+    command: 'ls [versions...]',
+    desc: 'List Node.js versions',
+    builder: (yargs) => yargs.default('versions', 'lts_active'),
+    handler: (argv) => {
+      nv(argv.versions)
+        .then(result => {
+          result.forEach(r => {
+            console.log(JSON.stringify(r))
+          })
+        }).catch(e => {
+          console.error(e)
+          process.exitCode = e.code || 1
+        })
+    }
+  })
+  .demandCommand()
+  .argv
+

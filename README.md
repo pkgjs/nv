@@ -60,10 +60,10 @@ For now referenced here until we have a more official doc: https://github.com/no
 - `lts_active`: Head of LTS and Active major version lines
 - `lts`: Head of current LTS lines
 - `active`: The newest version in the active but not maintenance mode lines
-- `lts_latest`/`lts/*`: Latest of the LTS lines (`lts/*` for nvm compat)
+- `lts_latest`/`lts/*`: Latest of the LTS lines (`lts/*` for nvm compatibility)
 - `supported`: Head of all maintained lines
 - *DEPRECATED* `maintained`: Head of all maintained lines
-- `current`/`node`: Newest of all maintained lines (`node` for nvm compat)
+- `current`/`node`: Newest of all maintained lines (`node` for nvm compatibility)
 
 **Version Aliases**
 

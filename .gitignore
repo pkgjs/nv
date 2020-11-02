@@ -96,3 +96,6 @@ public
 
 # DynamoDB Local files
 .dynamodb/
+
+# gen-esm-wrapper output
+.esm-wrapper.mjs

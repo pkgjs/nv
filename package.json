@@ -14,22 +14,32 @@
   ],
   "license": "MIT",
   "main": "index.js",
+  "exports": {
+    ".": {
+      "require": "./index.js",
+      "import": "./.esm-wrapper.mjs"
+    },
+    "./": "./"
+  },
   "repository": {
     "type": "git",
     "url": "https://github.com/pkgjs/nv.git"
   },
   "scripts": {
-    "test": "standard && mocha",
+    "test": "standard && mocha && tsd",
     "debug": "mocha --inspect --inspect-brk --timeout=0",
-    "prepublushOnly": "npm t",
-    "postpublish": "git push origin && git push origin --tags"
+    "prepublishOnly": "npm t",
+    "postpublish": "git push origin && git push origin --tags",
+    "prepack": "gen-esm-wrapper . ./.esm-wrapper.mjs"
   },
   "dependencies": {
     "got": "^10.2.1",
     "semver": "^7.1.1"
   },
   "devDependencies": {
+    "gen-esm-wrapper": "^1.1.0",
     "mocha": "^6.2.0",
-    "standard": "^14.3.1"
+    "standard": "^14.3.1",
+    "tsd": "^0.19.0"
   }
 }

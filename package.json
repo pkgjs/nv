@@ -15,8 +15,11 @@
   "license": "MIT",
   "main": "index.js",
   "exports": {
-    "require": "./index.js",
-    "import": "./.esm-wrapper.mjs"
+    ".": {
+      "require": "./index.js",
+      "import": "./.esm-wrapper.mjs"
+    },
+    "./": "./"
   },
   "repository": {
     "type": "git",

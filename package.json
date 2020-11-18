@@ -10,7 +10,7 @@
     "versions",
     "lts",
     "active",
-    "maintenence"
+    "maintenance"
   ],
   "license": "MIT",
   "main": "index.js",
@@ -26,10 +26,14 @@
   },
   "dependencies": {
     "got": "^10.2.1",
-    "semver": "^7.1.1"
+    "semver": "^7.1.1",
+    "yargs": "^16.0.3"
   },
   "devDependencies": {
     "mocha": "^6.2.0",
     "standard": "^14.3.1"
+  },
+  "bin": {
+    "nv": "./bin/nv"
   }
 }

@@ -26,7 +26,7 @@
     "url": "https://github.com/pkgjs/nv.git"
   },
   "scripts": {
-    "test": "standard && mocha",
+    "test": "standard && mocha && tsd",
     "debug": "mocha --inspect --inspect-brk --timeout=0",
     "prepublishOnly": "npm t",
     "postpublish": "git push origin && git push origin --tags",
@@ -39,6 +39,7 @@
   "devDependencies": {
     "gen-esm-wrapper": "^1.1.0",
     "mocha": "^6.2.0",
-    "standard": "^14.3.1"
+    "standard": "^14.3.1",
+    "tsd": "^0.19.0"
   }
 }

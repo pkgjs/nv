@@ -18,5 +18,5 @@ interface VersionInfo {
   end?: Date;
 }
 
-declare function nv(alias?: string, opts?: Options): Promise<VersionInfo[]>;
+declare function nv(alias?: string|string[], opts?: Options): Promise<VersionInfo[]>;
 export = nv;

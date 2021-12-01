@@ -1,17 +1,37 @@
 #!/usr/bin/env node
-
 const nv = require('../index')
 
-const args = require('yargs')
+// eslint-disable-next-line no-unused-expressions
+require('yargs')
   .command({
-    command: 'ls [versions...]',
+    command: ['ls [versions...]', 'show [versions...]'],
     desc: 'List Node.js versions',
-    builder: (yargs) => yargs.default('versions', 'lts_active'),
+    builder: (yargs) => {
+      yargs.default('versions', 'lts_active')
+      yargs.option('mirror', {
+        type: 'string',
+        description: 'mirror url to load from',
+        defaultDescription: 'https://nodejs.org/dist/'
+      })
+      yargs.option('pretty-json', {
+        type: 'string',
+        defaultDescription: 'pretty print json spaces, default 2 (--no-pretty-json for new line delimted json)',
+        description: 'Pretty print json'
+      })
+    },
     handler: (argv) => {
-      nv(argv.versions)
+      nv(argv.versions, {
+        mirror: argv.mirror
+      })
         .then(result => {
           result.forEach(r => {
-            console.log(JSON.stringify(r))
+            if (argv.prettyJson === false) {
+              console.log(JSON.stringify(r))
+            } else if (!isNaN(parseInt(argv.prettyJson, 10))) {
+              console.log(JSON.stringify(r, null, parseInt(argv.prettyJson, 10)))
+            } else {
+              console.log(JSON.stringify(r, null, argv.prettyJson || 2))
+            }
           })
         }).catch(e => {
           console.error(e)
@@ -21,4 +41,3 @@ const args = require('yargs')
   })
   .demandCommand()
   .argv
-

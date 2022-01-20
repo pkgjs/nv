@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.2.1-0](https://github.com/pkgjs/nv/compare/v0.2.0...v0.2.1-0) (2022-01-20)
+
+
+### Bug Fixes
+
+* do not ignore esm wrap on publish ([dc9cf58](https://github.com/pkgjs/nv/commit/dc9cf58ac68de5fb5dda8cb735b6d828bfafab5f))
+
 ## [0.2.0](https://github.com/pkgjs/nv/compare/v0.1.0...v0.2.0) (2021-12-01)
 
 

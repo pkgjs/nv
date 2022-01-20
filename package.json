@@ -1,6 +1,6 @@
 {
   "name": "@pkgjs/nv",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "A tool for resolving node versions from common aliases",
   "author": "Wes Todd <wes@wesleytodd.com>",
   "keywords": [

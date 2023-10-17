@@ -2,6 +2,7 @@ interface Options {
   now?: Date;
   cache?: Map<any, any>;
   mirror?: string;
+  latestOfMajorOnly?: Boolean
 }
 
 interface VersionInfo {

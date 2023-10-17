@@ -7,6 +7,7 @@ import nv from '.'
   await nv(['lts_active'], {
     now: new Date(),
     cache: new Map(),
-    mirror: 'http://example.com'
+    mirror: 'http://example.com',
+    latestOfMajorOnly: true
   })
 })()

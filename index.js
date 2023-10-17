@@ -100,7 +100,8 @@ async function getLatestVersionsByCodename (now, cache, mirror) {
       lts: s && s.lts && new Date(s.lts),
       maintenance: s && s.maintenance && new Date(s.maintenance),
       end: s && s.end && new Date(s.end),
-      releaseDate: new Date(ver.date)
+      releaseDate: new Date(ver.date),
+      isLts: false
     }
 
     // All versions get added to all
@@ -124,6 +125,7 @@ async function getLatestVersionsByCodename (now, cache, mirror) {
         // Latest lts
         if (now > v.lts) {
           lts[versionName] = v
+          v.isLts = true
 
           if (now < v.maintenance) {
             ltsActive[versionName] = v

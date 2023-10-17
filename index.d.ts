@@ -18,6 +18,7 @@ interface VersionInfo {
   maintenance?: Date;
   end?: Date;
   releaseDate: Date;
+  isLts: boolean;
 }
 
 declare function nv(alias?: string|string[], opts?: Options): Promise<VersionInfo[]>;

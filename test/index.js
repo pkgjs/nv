@@ -16,6 +16,7 @@ suite('nv', () => {
     assert.strictEqual(typeof versions[0].patch, 'number')
     assert.strictEqual(versions[0].codename, 'dubnium')
     assert.strictEqual(versions[0].versionName, 'v10')
+    assert.strictEqual(versions[0].releaseDate.toISOString(), '2021-04-06T00:00:00.000Z')
     assert.strictEqual(versions[0].start.toISOString(), '2018-04-24T00:00:00.000Z')
     assert.strictEqual(versions[0].lts.toISOString(), '2018-10-30T00:00:00.000Z')
     assert.strictEqual(versions[0].maintenance.toISOString(), '2020-05-19T00:00:00.000Z')

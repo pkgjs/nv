@@ -21,6 +21,7 @@ suite('nv', () => {
     assert.strictEqual(versions[0].lts.toISOString(), '2018-10-30T00:00:00.000Z')
     assert.strictEqual(versions[0].maintenance.toISOString(), '2020-05-19T00:00:00.000Z')
     assert.strictEqual(versions[0].end.toISOString(), '2021-04-30T00:00:00.000Z')
+    assert.strictEqual(versions[0].isLts, true)
   })
 
   test('lts', async () => {
@@ -29,9 +30,11 @@ suite('nv', () => {
     assert.strictEqual(versions[0].major, 8)
     assert.strictEqual(versions[0].codename, 'carbon')
     assert.strictEqual(versions[0].versionName, 'v8')
+    assert.strictEqual(versions[0].isLts, true)
     assert.strictEqual(versions[1].major, 10)
     assert.strictEqual(versions[1].codename, 'dubnium')
     assert.strictEqual(versions[1].versionName, 'v10')
+    assert.strictEqual(versions[1].isLts, true)
   })
 
   test('active', async () => {
@@ -138,5 +141,11 @@ suite('nv', () => {
     const versions = await nv('18.x', { now, latestOfMajorOnly: true })
     assert.strictEqual(versions.length, 1)
     assert.strictEqual(versions[0].major, 18)
+  })
+
+  test('isLts: false', async () => {
+    const versions = await nv('0.8.0', { now })
+    assert.strictEqual(versions[0].major, 0)
+    assert.strictEqual(versions[0].isLts, false)
   })
 })

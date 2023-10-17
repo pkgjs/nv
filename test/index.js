@@ -22,6 +22,28 @@ suite('nv', () => {
     assert.strictEqual(versions[0].maintenance.toISOString(), '2020-05-19T00:00:00.000Z')
     assert.strictEqual(versions[0].end.toISOString(), '2021-04-30T00:00:00.000Z')
     assert.strictEqual(versions[0].isLts, true)
+    assert.deepStrictEqual(versions[0].files, [
+      'aix-ppc64',
+      'headers',
+      'linux-arm64',
+      'linux-armv6l',
+      'linux-armv7l',
+      'linux-ppc64le',
+      'linux-s390x',
+      'linux-x64',
+      'osx-x64-pkg',
+      'osx-x64-tar',
+      'src',
+      'sunos-x64',
+      'win-x64-7z',
+      'win-x64-exe',
+      'win-x64-msi',
+      'win-x64-zip',
+      'win-x86-7z',
+      'win-x86-exe',
+      'win-x86-msi',
+      'win-x86-zip'
+    ])
   })
 
   test('lts', async () => {

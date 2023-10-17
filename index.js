@@ -101,7 +101,8 @@ async function getLatestVersionsByCodename (now, cache, mirror) {
       maintenance: s && s.maintenance && new Date(s.maintenance),
       end: s && s.end && new Date(s.end),
       releaseDate: new Date(ver.date),
-      isLts: false
+      isLts: false,
+      files: ver.files || []
     }
 
     // All versions get added to all

@@ -7,12 +7,13 @@ module.exports = async function (alias = 'lts_active', opts = {}) {
   const now = opts.now || new Date()
   const cache = opts.cache || _cache
   const mirror = opts.mirror || 'https://nodejs.org/dist/'
+  const latestOfMajorOnly = opts.latestOfMajorOnly || false
 
   const a = Array.isArray(alias) ? alias : [alias]
   const versions = await getLatestVersionsByCodename(now, cache, mirror)
 
   // Reduce to an object
-  const m = a.reduce((m, a) => {
+  let m = a.reduce((m, a) => {
     const vers = resolveAlias(versions, a)
     if (Array.isArray(vers)) {
       vers.forEach((v) => {
@@ -23,6 +24,18 @@ module.exports = async function (alias = 'lts_active', opts = {}) {
     }
     return m
   }, {})
+
+  // If only latest major is true, filter out all but latest
+  if (latestOfMajorOnly) {
+    const vers = Object.values(m).reduce((latestMajor, v) => {
+      // If highest in version range, save off
+      if (!latestMajor[v.major] || semver.gt(v.version, latestMajor[v.major].version)) {
+        latestMajor[v.major] = v
+      }
+      return latestMajor
+    }, {})
+    m = Array.from(Object.values(vers))
+  }
 
   // Sort and pluck version
   return Object.values(m).sort((v1, v2) => {

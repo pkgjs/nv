@@ -132,4 +132,10 @@ suite('nv', () => {
     assert.strictEqual(versions[0].tag, 'v8-canary20191022e5d3472f57')
     assert.strictEqual(versions[0].versionName, 'v13')
   })
+
+  test('latestOfMajorOnly', async () => {
+    const versions = await nv('18.x', { now, latestOfMajorOnly: true })
+    assert.strictEqual(versions.length, 1)
+    assert.strictEqual(versions[0].major, 18)
+  })
 })

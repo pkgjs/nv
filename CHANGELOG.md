@@ -2,6 +2,17 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.2.2](https://github.com/pkgjs/nv/compare/v0.2.1...v0.2.2) (2023-10-19)
+
+
+### Features
+
+* add files to versions ([e07c8c5](https://github.com/pkgjs/nv/commit/e07c8c585aff1a2e890a1fe60328aacebec4040e))
+* expose dependency versions ([dc42613](https://github.com/pkgjs/nv/commit/dc426133d3d0f3fe6947b32bd4e35454be3db48a))
+* include releaseDate ([4640a8f](https://github.com/pkgjs/nv/commit/4640a8ff433e7d6f4a92da733cc819b34594613e))
+* isLts boolean flag ([9bfee60](https://github.com/pkgjs/nv/commit/9bfee60276ac672f261f288f1a692d8402054885))
+* latestOfMajorOnly option to restrict to latest of each major line ([74834ba](https://github.com/pkgjs/nv/commit/74834ba507835606224235d4a6a964112acb61eb))
+
 ### [0.2.1](https://github.com/pkgjs/nv/compare/v0.2.0...v0.2.1) (2022-01-20)
 
 

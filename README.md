@@ -24,16 +24,47 @@ const nv = require('@pkgjs/nv')
   /*
 [
   {
-    version: '10.16.3',
-    major: 10,
-    minor: 16,
-    patch: 3,
-    codename: 'dubnium',
-    versionName: 'v10',
-    start: 2018-04-24T00:00:00.000Z,
-    lts: 2018-10-30T00:00:00.000Z,
-    maintenance: 2020-04-01T00:00:00.000Z,
-    end: 2021-04-01T00:00:00.000Z
+    "version": "18.18.2",
+    "major": 18,
+    "minor": 18,
+    "patch": 2,
+    "tag": "",
+    "codename": "hydrogen",
+    "versionName": "v18",
+    "start": "2022-04-19T00:00:00.000Z",
+    "lts": "2022-10-25T00:00:00.000Z",
+    "maintenance": "2023-10-18T00:00:00.000Z",
+    "end": "2025-04-30T00:00:00.000Z",
+    "releaseDate": "2023-10-13T00:00:00.000Z",
+    "isLts": true,
+    "files": [
+      "aix-ppc64",
+      "headers",
+      "linux-arm64",
+      "linux-armv7l",
+      "linux-ppc64le",
+      "linux-s390x",
+      "linux-x64",
+      "osx-arm64-tar",
+      "osx-x64-pkg",
+      "osx-x64-tar",
+      "src",
+      "win-x64-7z",
+      "win-x64-exe",
+      "win-x64-msi",
+      "win-x64-zip",
+      "win-x86-7z",
+      "win-x86-exe",
+      "win-x86-msi",
+      "win-x86-zip"
+    ],
+    "dependencies": {
+      "npm": "9.8.1",
+      "v8": "10.2.154.26",
+      "uv": "1.44.2",
+      "zlib": "1.2.13.1-motley",
+      "openssl": "3.0.10+quic"
+    }
   }
 ]
   */

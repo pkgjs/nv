@@ -44,6 +44,13 @@ suite('nv', () => {
       'win-x86-msi',
       'win-x86-zip'
     ])
+    assert.deepStrictEqual(versions[0].dependencies, {
+      npm: '6.14.12',
+      openssl: '1.1.1k',
+      uv: '1.34.2',
+      v8: '6.8.275.32',
+      zlib: '1.2.11'
+    })
   })
 
   test('lts', async () => {

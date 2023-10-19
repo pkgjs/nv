@@ -20,6 +20,13 @@ interface VersionInfo {
   releaseDate: Date;
   isLts: boolean;
   files: string[];
+  dependencies: {
+    npm: string,
+    v8: string,
+    uv: string,
+    zlib: string,
+    openssl: string
+  };
 }
 
 declare function nv(alias?: string|string[], opts?: Options): Promise<VersionInfo[]>;

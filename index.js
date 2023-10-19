@@ -102,7 +102,14 @@ async function getLatestVersionsByCodename (now, cache, mirror) {
       end: s && s.end && new Date(s.end),
       releaseDate: new Date(ver.date),
       isLts: false,
-      files: ver.files || []
+      files: ver.files || [],
+      dependencies: {
+        npm: ver.npm,
+        v8: ver.v8,
+        uv: ver.uv,
+        zlib: ver.zlib,
+        openssl: ver.openssl
+      }
     }
 
     // All versions get added to all

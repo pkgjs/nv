@@ -17,6 +17,12 @@ import assert from 'node:assert'
   assert(versions[0].releaseDate)
   assert(versions[0].isLts)
   assert(versions[0].files)
+  assert(versions[0].dependencies)
+  assert(versions[0].dependencies.npm)
+  assert(versions[0].dependencies.v8)
+  assert(versions[0].dependencies.uv)
+  assert(versions[0].dependencies.zlib)
+  assert(versions[0].dependencies.openssl)
   await nv('lts_active')
   await nv(['lts_active', 'supported'])
   await nv(['lts_active'], {

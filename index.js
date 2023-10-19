@@ -87,10 +87,9 @@ async function getLatestVersionsByCodename ({ now, cache, mirror, ignoreFutureRe
   const lts = {}
 
   const aliases = versions.reduce((obj, ver) => {
-    const { major, minor, patch, tag } = splitVersion(ver.version)
+    const { version, major, minor, patch, prerelease } = semver.parse(ver.version)
     const versionName = major !== '0' ? `v${major}` : `v${major}.${minor}`
     const codename = ver.lts ? ver.lts.toLowerCase() : null
-    const version = tag !== '' ? `${major}.${minor}.${patch}-${tag}` : `${major}.${minor}.${patch}`
     const s = schedule[versionName]
 
     // Version Object
@@ -99,7 +98,7 @@ async function getLatestVersionsByCodename ({ now, cache, mirror, ignoreFutureRe
       major,
       minor,
       patch,
-      tag,
+      prerelease,
       codename,
       versionName,
       start: s && s.start && new Date(s.start),
@@ -214,9 +213,4 @@ async function getLatestVersionsByCodename ({ now, cache, mirror, ignoreFutureRe
   })
 
   return aliases
-}
-
-function splitVersion (ver) {
-  const [, major, minor, patch, tag] = /^v([0-9]*)\.([0-9]*)\.([0-9]*)(?:-([0-9A-Za-z-_]+))?/.exec(ver).map((n, i) => i < 4 ? parseInt(n, 10) : n || '')
-  return { major, minor, patch, tag }
 }

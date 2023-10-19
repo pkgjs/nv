@@ -11,7 +11,7 @@ interface VersionInfo {
   major: number;
   minor: number;
   patch: number;
-  tag: string;
+  prerelease?: string[];
   codename: string;
   versionName: string;
   start?: Date;

@@ -177,4 +177,9 @@ suite('nv', () => {
     assert.strictEqual(versions[0].major, 0)
     assert.strictEqual(versions[0].isLts, false)
   })
+
+  test('codename null on non-lts', async () => {
+    const versions = await nv('0.8.0', { now })
+    assert.strictEqual(versions[0].codename, null)
+  })
 })

@@ -204,4 +204,9 @@ suite('nv', () => {
     assert.strictEqual(versions[0].minor, 16)
     assert.strictEqual(versions[0].patch, 1)
   })
+
+  test('codename null on non-lts', async () => {
+    const versions = await nv('0.8.0', { now })
+    assert.strictEqual(versions[0].codename, null)
+  })
 })

@@ -89,7 +89,7 @@ async function getLatestVersionsByCodename ({ now, cache, mirror, ignoreFutureRe
   const aliases = versions.reduce((obj, ver) => {
     const { major, minor, patch, tag } = splitVersion(ver.version)
     const versionName = major !== '0' ? `v${major}` : `v${major}.${minor}`
-    const codename = ver.lts ? ver.lts.toLowerCase() : versionName
+    const codename = ver.lts ? ver.lts.toLowerCase() : null
     const version = tag !== '' ? `${major}.${minor}.${patch}-${tag}` : `${major}.${minor}.${patch}`
     const s = schedule[versionName]
 

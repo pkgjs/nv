@@ -7,7 +7,7 @@ import assert from 'node:assert'
   assert(versions[0].major)
   assert(versions[0].minor)
   assert(versions[0].patch)
-  assert(versions[0].tag)
+  assert(!versions[0].prerelease)
   assert(versions[0].codename)
   assert(versions[0].versionName)
   assert(versions[0].start)

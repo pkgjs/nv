@@ -162,7 +162,7 @@ suite('nv', () => {
     assert.strictEqual(versions[0].major, 13)
     assert.strictEqual(versions[0].minor, 0)
     assert.strictEqual(versions[0].patch, 0)
-    assert.strictEqual(versions[0].tag, 'v8-canary20191022e5d3472f57')
+    assert.deepStrictEqual(versions[0].prerelease, ['v8-canary20191022e5d3472f57'])
     assert.strictEqual(versions[0].versionName, 'v13')
   })
 

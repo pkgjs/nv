@@ -42,7 +42,7 @@
   },
   "devDependencies": {
     "gen-esm-wrapper": "^1.1.0",
-    "mocha": "^9.2.2",
+    "mocha": "^10.6.0",
     "standard": "^17.1.2",
     "standard-version": "^9.3.2",
     "tsd": "^0.27.0"

@@ -18,6 +18,10 @@ require('yargs')
         defaultDescription: 'pretty print json spaces, default 2 (--no-pretty-json for new line delimted json)',
         description: 'Pretty print json'
       })
+      yargs.option('only-version', {
+        type: 'boolean',
+        description: 'show version number only'
+      })
     },
     handler: (argv) => {
       nv(argv.versions, {
@@ -25,7 +29,9 @@ require('yargs')
       })
         .then(result => {
           result.forEach(r => {
-            if (argv.prettyJson === false) {
+            if (argv['only-version']) {
+              console.log(r.version)
+            } else if (argv.prettyJson === false) {
               console.log(JSON.stringify(r))
             } else if (!isNaN(parseInt(argv.prettyJson, 10))) {
               console.log(JSON.stringify(r, null, parseInt(argv.prettyJson, 10)))

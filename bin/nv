@@ -23,6 +23,10 @@ require('yargs')
         default: false,
         description: 'Only show latest version in each semver major range'
       })
+      yargs.option('only-version', {
+        type: 'boolean',
+        description: 'show version number only'
+      })
     },
     handler: (argv) => {
       nv(argv.versions, {
@@ -31,7 +35,9 @@ require('yargs')
       })
         .then(result => {
           result.forEach(r => {
-            if (argv.prettyJson === false) {
+            if (argv['only-version']) {
+              console.log(r.version)
+            } else if (argv.prettyJson === false) {
               console.log(JSON.stringify(r))
             } else if (!isNaN(parseInt(argv.prettyJson, 10))) {
               console.log(JSON.stringify(r, null, parseInt(argv.prettyJson, 10)))

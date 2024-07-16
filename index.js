@@ -1,4 +1,7 @@
 'use strict'
+const { readFile } = require('fs/promises')
+const { join } = require('path')
+
 const got = require('got')
 const semver = require('semver')
 const _cache = new Map()
@@ -9,6 +12,8 @@ module.exports = async function (alias = 'lts_active', opts = {}) {
   const mirror = opts.mirror || 'https://nodejs.org/dist/'
   const latestOfMajorOnly = opts.latestOfMajorOnly || false
   const ignoreFutureReleases = opts.ignoreFutureReleases || false
+  const engines = opts.engines
+  const cwd = opts.cwd || process.cwd()
 
   const a = Array.isArray(alias) ? alias : [alias]
   const versions = await getLatestVersionsByCodename({
@@ -30,6 +35,18 @@ module.exports = async function (alias = 'lts_active', opts = {}) {
     }
     return m
   }, {})
+
+  if (typeof engines === 'string' || engines === true) {
+    const { engines: { node } = { node: '*' } } = JSON.parse(await readFile(join(cwd, 'package.json'), 'utf8'))
+
+    m = Object.fromEntries(Object.entries(m).filter(([version]) => semver.satisfies(version, node)))
+
+    const matching = Object.entries(m).filter(([version]) => semver.satisfies(version, engines))
+
+    if (matching.length > 0) {
+      m = Object.fromEntries(matching)
+    }
+  }
 
   // If only latest major is true, filter out all but latest
   if (latestOfMajorOnly) {

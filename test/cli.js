@@ -40,6 +40,7 @@ suite('nv cli', () => {
       assert(semver.valid(r))
     })
   })
+
   test('should only contain the latest of each major', () => {
     const result = execFileSync(nv, ['ls', '16.x || 18.x', '--no-pretty-json', '--latest-of-major-only'], { cwd })
       .toString().trim().split('\n')
@@ -49,5 +50,63 @@ suite('nv cli', () => {
     assert.strictEqual(result.length, 2)
     assert(result[0].version.startsWith('16.'))
     assert(result[1].version.startsWith('18.'))
+  })
+
+  test('works with `--engines`', () => {
+    const result = execFileSync(nv, ['ls', '8.x', '--only-version', '--engines=">=8"'], { cwd: path.join(__dirname, 'fixtures', 'engines') })
+      .toString().trim().split('\n')
+
+    assert.deepEqual(result, [
+      '8.10.0',
+      '8.11.0',
+      '8.11.1',
+      '8.11.2',
+      '8.11.3',
+      '8.11.4',
+      '8.12.0',
+      '8.13.0',
+      '8.14.0',
+      '8.14.1',
+      '8.15.0',
+      '8.15.1',
+      '8.16.0',
+      '8.16.1',
+      '8.16.2',
+      '8.17.0'
+    ])
+
+    const result2 = execFileSync(nv, ['ls', '8.x', '--only-version', '--engines=">=8.15"'], { cwd: path.join(__dirname, 'fixtures', 'engines') })
+      .toString().trim().split('\n')
+
+    assert.deepEqual(result2, [
+      '8.15.0',
+      '8.15.1',
+      '8.16.0',
+      '8.16.1',
+      '8.16.2',
+      '8.17.0'
+    ])
+
+    const result3 = execFileSync(nv, ['ls', '8.x', '--only-version', '--engines'], { cwd: path.join(__dirname, 'fixtures', 'engines') })
+      .toString().trim().split('\n')
+
+    assert.deepEqual(result3, [
+      '8.10.0',
+      '8.11.0',
+      '8.11.1',
+      '8.11.2',
+      '8.11.3',
+      '8.11.4',
+      '8.12.0',
+      '8.13.0',
+      '8.14.0',
+      '8.14.1',
+      '8.15.0',
+      '8.15.1',
+      '8.16.0',
+      '8.16.1',
+      '8.16.2',
+      '8.17.0'
+    ])
   })
 })

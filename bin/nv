@@ -22,9 +22,14 @@ require('yargs')
         type: 'boolean',
         description: 'show version number only'
       })
+      yargs.option('engines', {
+        type: 'string',
+        description: 'read the value of `engines.node`. if a value is provided, and it satisfies, the version is shown; if not, the max satisfying version is shown'
+      })
     },
     handler: (argv) => {
       nv(argv.versions, {
+        engines: argv.engines,
         mirror: argv.mirror
       })
         .then(result => {
@@ -41,7 +46,7 @@ require('yargs')
           })
         }).catch(e => {
           console.error(e)
-          process.exitCode = e.code || 1
+          process.exitCode ||= e.code || 1
         })
     }
   })

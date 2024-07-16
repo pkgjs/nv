@@ -1,5 +1,4 @@
 'use strict'
-const got = require('got')
 const semver = require('semver')
 const _cache = new Map()
 
@@ -58,16 +57,22 @@ function resolveAlias (versions, alias) {
   }
 }
 
-function getSchedule (cache) {
-  return got('https://raw.githubusercontent.com/nodejs/Release/master/schedule.json', {
-    cache
-  }).json()
+async function getSchedule (cache) {
+  const cached = cache.get('schedule')
+  if (cached) {
+    return cached
+  }
+  return fetch('https://raw.githubusercontent.com/nodejs/Release/master/schedule.json')
+    .then((res) => res.json())
 }
 
-function getVersions (cache, mirror) {
-  return got(mirror.replace(/\/$/, '') + '/index.json', {
-    cache
-  }).json()
+async function getVersions (cache, mirror) {
+  const cached = cache.get('versions')
+  if (cached) {
+    return cached
+  }
+  return fetch(mirror.replace(/\/$/, '') + '/index.json')
+    .then((res) => res.json())
 }
 
 async function getLatestVersionsByCodename (now, cache, mirror) {

@@ -177,4 +177,20 @@ suite('nv', () => {
     assert.strictEqual(versions[0].major, 0)
     assert.strictEqual(versions[0].isLts, false)
   })
+
+  test('ignoreFutureReleases=false', async () => {
+    const versions = await nv('v8', { now, ignoreFutureReleases: false })
+    assert.strictEqual(versions.length, 1)
+    assert.strictEqual(versions[0].major, 8)
+    assert.strictEqual(versions[0].minor, 17)
+    assert.strictEqual(versions[0].patch, 0)
+  })
+
+  test('ignoreFutureReleases=true', async () => {
+    const versions = await nv('v8', { now, ignoreFutureReleases: true })
+    assert.strictEqual(versions.length, 1)
+    assert.strictEqual(versions[0].major, 8)
+    assert.strictEqual(versions[0].minor, 16)
+    assert.strictEqual(versions[0].patch, 1)
+  })
 })

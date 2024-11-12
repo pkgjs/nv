@@ -8,9 +8,10 @@ module.exports = async function (alias = 'lts_active', opts = {}) {
   const cache = opts.cache || _cache
   const mirror = opts.mirror || 'https://nodejs.org/dist/'
   const latestOfMajorOnly = opts.latestOfMajorOnly || false
+  const ignoreFutureReleases = opts.ignoreFutureReleases || false
 
   const a = Array.isArray(alias) ? alias : [alias]
-  const versions = await getLatestVersionsByCodename(now, cache, mirror)
+  const versions = await getLatestVersionsByCodename(now, cache, mirror, ignoreFutureReleases)
 
   // Reduce to an object
   let m = a.reduce((m, a) => {
@@ -70,7 +71,7 @@ function getVersions (cache, mirror) {
   }).json()
 }
 
-async function getLatestVersionsByCodename (now, cache, mirror) {
+async function getLatestVersionsByCodename (now, cache, mirror, ignoreFutureReleases) {
   const schedule = await getSchedule(cache)
   const versions = await getVersions(cache, mirror)
 
@@ -110,6 +111,11 @@ async function getLatestVersionsByCodename (now, cache, mirror) {
         zlib: ver.zlib,
         openssl: ver.openssl
       }
+    }
+
+    // This version is from future; completely ignore it (i.e. we may have specified a `now` from the past)
+    if (ignoreFutureReleases && now < v.releaseDate) {
+      return obj
     }
 
     // All versions get added to all

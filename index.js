@@ -3,6 +3,9 @@ const got = require('got')
 const semver = require('semver')
 const _cache = new Map()
 
+// Only print warning about future versions ones per process
+let futureVersionsWarningShown = false
+
 module.exports = async function (alias = 'lts_active', opts = {}) {
   const now = opts.now || new Date()
   const cache = opts.cache || _cache
@@ -81,6 +84,8 @@ async function getLatestVersionsByCodename (now, cache, mirror, ignoreFutureRele
   const ltsActive = {}
   const lts = {}
 
+  const futureVersions = []
+
   const aliases = versions.reduce((obj, ver) => {
     const { major, minor, patch, tag } = splitVersion(ver.version)
     const versionName = major !== '0' ? `v${major}` : `v${major}.${minor}`
@@ -114,8 +119,12 @@ async function getLatestVersionsByCodename (now, cache, mirror, ignoreFutureRele
     }
 
     // This version is from future; completely ignore it (i.e. we may have specified a `now` from the past)
-    if (ignoreFutureReleases && now < v.releaseDate) {
-      return obj
+    if (now < v.releaseDate) {
+      if (ignoreFutureReleases) {
+        return obj
+      } else {
+        futureVersions.push(v)
+      }
     }
 
     // All versions get added to all
@@ -177,6 +186,16 @@ async function getLatestVersionsByCodename (now, cache, mirror, ignoreFutureRele
 
   // nvm 'node'
   aliases.node = aliases.current
+
+  // Print warning about future versions
+  if (!futureVersionsWarningShown && futureVersions.length) {
+    futureVersionsWarningShown = true
+    process.emitWarning(
+      `${futureVersions.length} node versions have a releaseDate in the future and may not be ready for use. Pass ignoreFutureReleases to exclude these.`,
+      'Warning',
+      'nv-future-release'
+    )
+  }
 
   // Deprecated maintained alias
   let deprecationShown = false

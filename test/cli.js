@@ -27,4 +27,14 @@ suite('nv cli', () => {
       assert(r.version.startsWith('8.'))
     })
   })
+  test('should only contain the latest of each major', () => {
+    const result = execFileSync(nv, ['ls', '16.x || 18.x', '--no-pretty-json', '--latest-of-major-only'], { cwd: cwd })
+      .toString().trim().split('\n')
+      .map((line) => JSON.parse(line))
+
+    assert(Array.isArray(result))
+    assert.strictEqual(result.length, 2)
+    assert(result[0].version.startsWith('16.'))
+    assert(result[1].version.startsWith('18.'))
+  })
 })

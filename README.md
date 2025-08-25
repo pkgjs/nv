@@ -7,12 +7,44 @@
 
 This repository is managed by the [Package Maintenance Working Group](https://github.com/nodejs/package-maintenance), see [Governance](https://github.com/nodejs/package-maintenance/blob/master/Governance.md).
 
-
-
 ## Usage
 
 ```
 $ npm i @pkgjs/nv
+```
+
+```
+$ npx @pkgjs/nv --help
+
+nv <command>
+
+Commands:
+  nv ls [versions...]  List Node.js versions                     [aliases: show]
+
+Options:
+  --help     Show help                                                 [boolean]
+  --version  Show version number                                       [boolean]
+
+```
+
+```
+$ npx @pkgjs/nv ls --help
+
+nv ls [versions...]
+
+List Node.js versions
+
+Options:
+  --help                  Show help                                    [boolean]
+  --version               Show version number                          [boolean]
+  --mirror                mirror url to load from
+                                    [string] [default: https://nodejs.org/dist/]
+  --pretty-json           Pretty print json
+    [string] [default: pretty print json spaces, default 2 (--no-pretty-json for
+                                                        new line delimted json)]
+  --latest-of-major-only  Only show latest version in each semver major range
+                                                      [boolean] [default: false]
+  --versions                                             [default: "lts_active"]
 ```
 
 ```javascript

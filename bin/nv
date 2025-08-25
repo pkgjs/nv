@@ -18,10 +18,16 @@ require('yargs')
         defaultDescription: 'pretty print json spaces, default 2 (--no-pretty-json for new line delimted json)',
         description: 'Pretty print json'
       })
+      yargs.option('latest-of-major-only', {
+        type: 'boolean',
+        default: false,
+        description: 'Only show latest version in each semver major range'
+      })
     },
     handler: (argv) => {
       nv(argv.versions, {
-        mirror: argv.mirror
+        mirror: argv.mirror,
+        latestOfMajorOnly: argv.latestOfMajorOnly
       })
         .then(result => {
           result.forEach(r => {

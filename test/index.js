@@ -22,6 +22,9 @@ suite('nv', () => {
     assert.strictEqual(versions[0].maintenance.toISOString(), '2020-05-19T00:00:00.000Z')
     assert.strictEqual(versions[0].end.toISOString(), '2021-04-30T00:00:00.000Z')
     assert.strictEqual(versions[0].isLts, true)
+    assert.strictEqual(versions[0].isSupported, true)
+    assert.strictEqual(versions[0].isMaintenance, false)
+    assert.strictEqual(versions[0].modules, '64')
     assert.deepStrictEqual(versions[0].files, [
       'aix-ppc64',
       'headers',
@@ -170,6 +173,14 @@ suite('nv', () => {
     const versions = await nv('18.x', { now, latestOfMajorOnly: true })
     assert.strictEqual(versions.length, 1)
     assert.strictEqual(versions[0].major, 18)
+  })
+
+  test('latestOfMajorOnly with an alias', async () => {
+    const versions = await nv('supported', { now, latestOfMajorOnly: true })
+    assert.strictEqual(versions.length, 3)
+    assert.strictEqual(versions[0].major, 8)
+    assert.strictEqual(versions[1].major, 10)
+    assert.strictEqual(versions[2].major, 12)
   })
 
   test('isLts: false', async () => {

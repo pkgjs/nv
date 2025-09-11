@@ -19,6 +19,10 @@ interface VersionInfo {
   end?: Date;
   releaseDate: Date;
   isLts: boolean;
+  isSupported: boolean;
+  isMaintenance: boolean;
+  isSecurity: boolean;
+  modules: string;
   files: string[];
   dependencies: {
     npm: string,

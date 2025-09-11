@@ -10,7 +10,11 @@ module.exports = async function (alias = 'lts_active', opts = {}) {
   const latestOfMajorOnly = opts.latestOfMajorOnly || false
 
   const a = Array.isArray(alias) ? alias : [alias]
-  const versions = await getLatestVersionsByCodename(now, cache, mirror)
+  const versions = await getLatestVersionsByCodename({
+    now,
+    cache,
+    mirror
+  })
 
   // Reduce to an object
   let m = a.reduce((m, a) => {
@@ -70,7 +74,7 @@ function getVersions (cache, mirror) {
   }).json()
 }
 
-async function getLatestVersionsByCodename (now, cache, mirror) {
+async function getLatestVersionsByCodename ({ now, cache, mirror }) {
   const schedule = await getSchedule(cache)
   const versions = await getVersions(cache, mirror)
 
@@ -102,6 +106,10 @@ async function getLatestVersionsByCodename (now, cache, mirror) {
       end: s && s.end && new Date(s.end),
       releaseDate: new Date(ver.date),
       isLts: false,
+      isSupported: false,
+      isMaintenance: false,
+      isSecurity: ver.security,
+      modules: ver.modules,
       files: ver.files || [],
       dependencies: {
         npm: ver.npm,
@@ -112,30 +120,38 @@ async function getLatestVersionsByCodename (now, cache, mirror) {
       }
     }
 
-    // All versions get added to all
-    obj.all.push(v)
+    // Is in any supported period
+    if (now > v.start && now < v.end) {
+      v.isSupported = true
 
-    // Add specific version references
-    obj[v.version] = obj[`v${v.version}`] = v
+      // Is in maintenence period
+      if (now > v.maintenance) {
+        v.isMaintenance = true
+      }
+
+      // Latest lts
+      if (now > v.lts) {
+        v.isLts = true
+      }
+    }
 
     // The new version is higher than the last stored version for this release line
     if (!obj[versionName] || semver.gt(ver.version, obj[versionName].version)) {
       // Version and codename alias
       obj[versionName] = obj[codename] = v
 
-      if (now > v.start && now < v.end) {
+      if (v.isSupported) {
         supported[versionName] = v
 
-        if (now < v.maintenance) {
+        if (!v.isMaintenance) {
           active[versionName] = v
         }
 
         // Latest lts
-        if (now > v.lts) {
+        if (v.isLts) {
           lts[versionName] = v
-          v.isLts = true
 
-          if (now < v.maintenance) {
+          if (!v.isMaintenance) {
             ltsActive[versionName] = v
           }
 
@@ -150,6 +166,12 @@ async function getLatestVersionsByCodename (now, cache, mirror) {
         }
       }
     }
+
+    // All versions get added to all
+    obj.all.push(v)
+
+    // Add specific version references
+    obj[v.version] = obj[`v${v.version}`] = v
 
     return obj
   }, {

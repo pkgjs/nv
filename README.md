@@ -81,6 +81,109 @@ console.log(versions.map((v) => v.version))
 */
 ```
 
+## Command line interface (CLI)
+
+Options:
+ - `--only-version`: instead of the entire output, only print one version number per line
+ - `--engines`: only print versions that match the current directory's `engines.node` field
+   - `--engines=lts`: only print LTS versions that also match the current directory's `engines.node` field
+
+```sh
+$ nv ls lts
+{
+  "version": "18.20.4",
+  "major": 18,
+  "minor": 20,
+  "patch": 4,
+  "tag": "",
+  "codename": "hydrogen",
+  "versionName": "v18",
+  "start": "2022-04-19T00:00:00.000Z",
+  "lts": "2022-10-25T00:00:00.000Z",
+  "maintenance": "2023-10-18T00:00:00.000Z",
+  "end": "2025-04-30T00:00:00.000Z",
+  "releaseDate": "2024-07-08T00:00:00.000Z",
+  "isLts": true,
+  "files": [
+    "aix-ppc64",
+    "headers",
+    "linux-arm64",
+    "linux-armv7l",
+    "linux-ppc64le",
+    "linux-s390x",
+    "linux-x64",
+    "osx-arm64-tar",
+    "osx-x64-pkg",
+    "osx-x64-tar",
+    "src",
+    "win-x64-7z",
+    "win-x64-exe",
+    "win-x64-msi",
+    "win-x64-zip",
+    "win-x86-7z",
+    "win-x86-exe",
+    "win-x86-msi",
+    "win-x86-zip"
+  ],
+  "dependencies": {
+    "npm": "10.7.0",
+    "v8": "10.2.154.26",
+    "uv": "1.44.2",
+    "zlib": "1.3.0.1-motley",
+    "openssl": "3.0.13+quic"
+  }
+}
+{
+  "version": "20.15.1",
+  "major": 20,
+  "minor": 15,
+  "patch": 1,
+  "tag": "",
+  "codename": "iron",
+  "versionName": "v20",
+  "start": "2023-04-18T00:00:00.000Z",
+  "lts": "2023-10-24T00:00:00.000Z",
+  "maintenance": "2024-10-22T00:00:00.000Z",
+  "end": "2026-04-30T00:00:00.000Z",
+  "releaseDate": "2024-07-08T00:00:00.000Z",
+  "isLts": true,
+  "files": [
+    "aix-ppc64",
+    "headers",
+    "linux-arm64",
+    "linux-armv7l",
+    "linux-ppc64le",
+    "linux-s390x",
+    "linux-x64",
+    "osx-arm64-tar",
+    "osx-x64-pkg",
+    "osx-x64-tar",
+    "src",
+    "win-arm64-7z",
+    "win-arm64-zip",
+    "win-x64-7z",
+    "win-x64-exe",
+    "win-x64-msi",
+    "win-x64-zip",
+    "win-x86-7z",
+    "win-x86-exe",
+    "win-x86-msi",
+    "win-x86-zip"
+  ],
+  "dependencies": {
+    "npm": "10.7.0",
+    "v8": "11.3.244.8",
+    "uv": "1.46.0",
+    "zlib": "1.3.0.1-motley",
+    "openssl": "3.0.13+quic"
+  }
+}
+
+$ nv ls lts --only-version
+18.20.4
+20.15.1
+```
+
 ## Supported Aliases
 
 **Support Aliases**

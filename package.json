@@ -36,7 +36,7 @@
     "release": "npm t && standard-version && npm publish"
   },
   "dependencies": {
-    "got": "^11.8.3",
+    "got": "^11.8.6",
     "semver": "^7.1.1",
     "yargs": "^16.2.0"
   },

@@ -2,6 +2,22 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [0.3.0](https://github.com/pkgjs/nv/compare/v0.2.2...v0.3.0) (2025-09-18)
+
+
+### Features
+
+* add isSupported, isMaintenance, isSecurity, and modules ([fbc7ee6](https://github.com/pkgjs/nv/commit/fbc7ee6589d38b761f98107c67f8874090cba310))
+* add option to ignore future releases ([#39](https://github.com/pkgjs/nv/issues/39)) ([30cca1f](https://github.com/pkgjs/nv/commit/30cca1f6b399fe4038191969e0defd86ac1286f7))
+* **cli:** expose --latest-of-major-only option ([1149077](https://github.com/pkgjs/nv/commit/1149077978b454ac9fc79b30418c82c296a9b053))
+
+
+### Bug Fixes
+
+* **ci:** update ci to include modern node.js versions ([9bb69a4](https://github.com/pkgjs/nv/commit/9bb69a4460df6042bfb59083f19aafb6d69f9459))
+* **deps:** update got to latest compatible version ([#44](https://github.com/pkgjs/nv/issues/44)) ([2a47bc5](https://github.com/pkgjs/nv/commit/2a47bc54d2f4db817094b1f9e695eb13ed79b65c))
+* **dev-deps:** updated mocha, standard, & tsd ([#43](https://github.com/pkgjs/nv/issues/43)) ([b54c8cc](https://github.com/pkgjs/nv/commit/b54c8cc34e1bcead3f79a2bd113ff659b6074d8c))
+
 ### [0.2.2](https://github.com/pkgjs/nv/compare/v0.2.1...v0.2.2) (2023-10-19)
 
 

@@ -1,16 +1,37 @@
 name: Test
-on: push
+on:
+  push:
+    branches:
+      - main
+    paths-ignore:
+      - '*.md'
+permissions:
+  contents: read
 jobs:
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v5
+    - name: Use Node.js 24.x
+      uses: actions/setup-node@v5
+      with:
+        node-version: 24.x
+    - name: npm install
+      run: npm install
+    - name: npm lint
+      run: npm run lint
   test:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        node-version: [10.x, 12.x, 13.x]
+        node-version: [10.x, 12.x, 13.x, 14.x, 16.x, 18.x, 20.x, 22.x, 24.x]
     steps:
-    - uses: actions/checkout@v2
+    - uses: actions/checkout@v5
     - name: Use Node.js ${{ matrix.node-version }}
-      uses: actions/setup-node@v1
+      uses: actions/setup-node@v5
       with:
         node-version: ${{ matrix.node-version }}
-    - name: npm install and test
-      run: npm it
+    - name: npm install
+      run: npm install
+    - name: npm test
+      run: npm run test

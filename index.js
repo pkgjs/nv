@@ -1,4 +1,7 @@
 'use strict'
+const { readFile } = require('fs/promises')
+const { join } = require('path')
+
 const got = require('got')
 const semver = require('semver')
 const _cache = new Map()
@@ -9,6 +12,8 @@ module.exports = async function (alias = 'lts_active', opts = {}) {
   const mirror = opts.mirror || 'https://nodejs.org/dist/'
   const latestOfMajorOnly = opts.latestOfMajorOnly || false
   const ignoreFutureReleases = opts.ignoreFutureReleases || false
+  const engines = opts.engines
+  const cwd = opts.cwd || process.cwd()
 
   const a = Array.isArray(alias) ? alias : [alias]
   const versions = await getLatestVersionsByCodename({
@@ -30,6 +35,18 @@ module.exports = async function (alias = 'lts_active', opts = {}) {
     }
     return m
   }, {})
+
+  if (typeof engines === 'string' || engines === true) {
+    const { engines: { node } = { node: '*' } } = JSON.parse(await readFile(join(cwd, 'package.json'), 'utf8'))
+
+    m = Object.fromEntries(Object.entries(m).filter(([version]) => semver.satisfies(version, node)))
+
+    const matching = Object.entries(m).filter(([version]) => semver.satisfies(version, engines))
+
+    if (matching.length > 0) {
+      m = Object.fromEntries(matching)
+    }
+  }
 
   // If only latest major is true, filter out all but latest
   if (latestOfMajorOnly) {
@@ -87,10 +104,9 @@ async function getLatestVersionsByCodename ({ now, cache, mirror, ignoreFutureRe
   const lts = {}
 
   const aliases = versions.reduce((obj, ver) => {
-    const { major, minor, patch, tag } = splitVersion(ver.version)
+    const { version, major, minor, patch, prerelease } = semver.parse(ver.version)
     const versionName = major !== '0' ? `v${major}` : `v${major}.${minor}`
-    const codename = ver.lts ? ver.lts.toLowerCase() : versionName
-    const version = tag !== '' ? `${major}.${minor}.${patch}-${tag}` : `${major}.${minor}.${patch}`
+    const codename = ver.lts ? ver.lts.toLowerCase() : null
     const s = schedule[versionName]
 
     // Version Object
@@ -99,7 +115,7 @@ async function getLatestVersionsByCodename ({ now, cache, mirror, ignoreFutureRe
       major,
       minor,
       patch,
-      tag,
+      prerelease,
       codename,
       versionName,
       start: s && s.start && new Date(s.start),
@@ -214,9 +230,4 @@ async function getLatestVersionsByCodename ({ now, cache, mirror, ignoreFutureRe
   })
 
   return aliases
-}
-
-function splitVersion (ver) {
-  const [, major, minor, patch, tag] = /^v([0-9]*)\.([0-9]*)\.([0-9]*)(?:-([0-9A-Za-z-_]+))?/.exec(ver).map((n, i) => i < 4 ? parseInt(n, 10) : n || '')
-  return { major, minor, patch, tag }
 }

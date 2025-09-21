@@ -1,6 +1,7 @@
 'use strict'
 const { suite, test } = require('mocha')
 const assert = require('assert')
+const path = require('path')
 const nv = require('..')
 
 // 2019-02-07T16:15:49.683Z
@@ -165,7 +166,7 @@ suite('nv', () => {
     assert.strictEqual(versions[0].major, 13)
     assert.strictEqual(versions[0].minor, 0)
     assert.strictEqual(versions[0].patch, 0)
-    assert.strictEqual(versions[0].tag, 'v8-canary20191022e5d3472f57')
+    assert.deepStrictEqual(versions[0].prerelease, ['v8-canary20191022e5d3472f57'])
     assert.strictEqual(versions[0].versionName, 'v13')
   })
 
@@ -203,5 +204,65 @@ suite('nv', () => {
     assert.strictEqual(versions[0].major, 8)
     assert.strictEqual(versions[0].minor, 16)
     assert.strictEqual(versions[0].patch, 1)
+  })
+
+  test('codename null on non-lts', async () => {
+    const versions = await nv('0.8.0', { now })
+    assert.strictEqual(versions[0].codename, null)
+  })
+
+  test('engines option', async () => {
+    const versions = await nv('8.x', { now, cwd: path.join(__dirname, 'fixtures', 'engines'), engines: '>=8' })
+
+    assert.deepEqual(versions.map(x => x.version), [
+      '8.10.0',
+      '8.11.0',
+      '8.11.1',
+      '8.11.2',
+      '8.11.3',
+      '8.11.4',
+      '8.12.0',
+      '8.13.0',
+      '8.14.0',
+      '8.14.1',
+      '8.15.0',
+      '8.15.1',
+      '8.16.0',
+      '8.16.1',
+      '8.16.2',
+      '8.17.0'
+    ])
+
+    const versions2 = await nv('8.x', { now, cwd: path.join(__dirname, 'fixtures', 'engines'), engines: '>=8.15' })
+
+    assert.deepEqual(versions2.map(x => x.version), [
+      '8.15.0',
+      '8.15.1',
+      '8.16.0',
+      '8.16.1',
+      '8.16.2',
+      '8.17.0'
+    ])
+
+    const versions3 = await nv('8.x', { now, cwd: path.join(__dirname, 'fixtures', 'engines'), engines: true })
+
+    assert.deepEqual(versions3.map(x => x.version), [
+      '8.10.0',
+      '8.11.0',
+      '8.11.1',
+      '8.11.2',
+      '8.11.3',
+      '8.11.4',
+      '8.12.0',
+      '8.13.0',
+      '8.14.0',
+      '8.14.1',
+      '8.15.0',
+      '8.15.1',
+      '8.16.0',
+      '8.16.1',
+      '8.16.2',
+      '8.17.0'
+    ])
   })
 })

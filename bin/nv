@@ -23,15 +23,26 @@ require('yargs')
         default: false,
         description: 'Only show latest version in each semver major range'
       })
+      yargs.option('only-version', {
+        type: 'boolean',
+        description: 'show version number only'
+      })
+      yargs.option('engines', {
+        type: 'string',
+        description: 'read the value of `engines.node`. if a value is provided, and it satisfies, the version is shown; if not, the max satisfying version is shown'
+      })
     },
     handler: (argv) => {
       nv(argv.versions, {
+        engines: argv.engines,
         mirror: argv.mirror,
         latestOfMajorOnly: argv.latestOfMajorOnly
       })
         .then(result => {
           result.forEach(r => {
-            if (argv.prettyJson === false) {
+            if (argv['only-version']) {
+              console.log(r.version)
+            } else if (argv.prettyJson === false) {
               console.log(JSON.stringify(r))
             } else if (!isNaN(parseInt(argv.prettyJson, 10))) {
               console.log(JSON.stringify(r, null, parseInt(argv.prettyJson, 10)))
@@ -41,7 +52,7 @@ require('yargs')
           })
         }).catch(e => {
           console.error(e)
-          process.exitCode = e.code || 1
+          process.exitCode ||= e.code || 1
         })
     }
   })
